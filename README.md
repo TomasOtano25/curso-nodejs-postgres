@@ -10,6 +10,8 @@ npm i express
 npm i faker@5.5.3
 ```
 
+### Documentacion de los modulos
+
 ```
 npm docs boom
 ```
