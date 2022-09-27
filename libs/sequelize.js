@@ -23,6 +23,6 @@ setupModels(sequelize);
 //   await sequelize.sync({ force: false }); // Tomar los modelos y crear la estructura en la base de datos
 // })();
 
-sequelize.sync();
+// sequelize.sync();
 
 module.exports = sequelize;
