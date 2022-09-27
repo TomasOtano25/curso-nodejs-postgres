@@ -1,3 +1,5 @@
+const { ValidationError } = require('sequelize');
+
 // Creamos function que nos hara llegar a un middleware de tipo error:
 // Middleware de tipo error
 function logErrors(error, req, res, next) {
@@ -24,4 +26,15 @@ function boomErrorHandler(error, req, res, next) {
   next(error);
 }
 
-module.exports = { logErrors, boomErrorHandler, errorHandler };
+function ormErrorHandler(error, req, res, next) {
+  if (error instanceof ValidationError) {
+    res.status(409).json({
+      statusCode: 409,
+      message: error.name,
+      errors: error.errors,
+    });
+  }
+  next(error);
+}
+
+module.exports = { logErrors, boomErrorHandler, errorHandler, ormErrorHandler };
