@@ -23,3 +23,11 @@ npm docs boom
 ### API
 
 [API en heroku](https://still-scrubland-51772.herokuapp.com/api/v1/products)
+
+### Ejecucion de docker
+
+```
+-d = ejecutar el segundo plano
+
+docker-compose up -d postgres
+```
