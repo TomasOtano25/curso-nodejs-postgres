@@ -37,12 +37,14 @@ router.get(
 router.post(
   '/',
   validatorHandler(createUserSchema, 'body'),
-  async (req, res) => {
-    const body = req.body;
-
-    const newUser = await service.create(body);
-
-    res.status(201).json({ message: 'created', data: newUser });
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const newUser = await service.create(body);
+      res.status(201).json(newUser);
+    } catch (error) {
+      next(error);
+    }
   }
 );
 
@@ -70,14 +72,14 @@ router.patch(
 router.delete(
   '/:id',
   validatorHandler(getUserSchema, 'params'),
-  async (req, res) => {
-    const { id } = req.params;
-
-    const userId = await service.delete(id);
-    res.json({
-      message: 'update partial',
-      userId,
-    });
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const userId = await service.delete(id);
+      res.json(userId);
+    } catch (error) {
+      next(error);
+    }
   }
 );
 

@@ -14,8 +14,10 @@ const sequelize = new Sequelize(URI, {
 
 setupModels(sequelize);
 
-(async () => {
-  await sequelize.sync({ force: true }); // Tomar los modelos y crear la estructura en la base de datos
-})();
+// (async () => {
+//   await sequelize.sync({ force: false }); // Tomar los modelos y crear la estructura en la base de datos
+// })();
+
+sequelize.sync();
 
 module.exports = sequelize;
