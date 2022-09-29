@@ -3,17 +3,24 @@ const { config } = require('../config/config');
 
 let URI = '';
 
-if(config.isProd) {
+if (config.isProd) {
   URI = config.dbUrl;
 } else {
   const USER = encodeURIComponent(config.dbUser);
   const PASSWORD = encodeURIComponent(config.dbPassword);
   URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 }
-
-const pool = new Pool({
+const options = {
   connectionString: URI,
-});
+};
+
+if (config.isProd) {
+  options.ssl = {
+    rejectUnauthorized: false,
+  };
+}
+
+const pool = new Pool(options);
 
 // const pool = new Pool({
 //   host: 'localhost',
